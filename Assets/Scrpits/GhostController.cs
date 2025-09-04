@@ -19,7 +19,7 @@ public class GhostController : MonoBehaviour
         float moveZ = Input.GetAxis("Horizontal");
         float moveX = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveX, 0, moveZ) * speed * Time.deltaTime;
+        Vector3 movement = new Vector3(-moveX, 0, moveZ) * speed * Time.deltaTime;
 
         transform.Translate(movement, Space.World);
     }
