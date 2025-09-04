@@ -2109,19 +2109,11 @@ MeshFilter:
 =======
 --- !u!4 &1270156053
 >>>>>>> Stashed changes
-=======
---- !u!4 &1270156053
->>>>>>> Stashed changes
-=======
---- !u!4 &1270156053
->>>>>>> Stashed changes
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 1262346811}
   serializedVersion: 2
@@ -2132,10 +2124,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
 =======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
   m_GameObject: {fileID: 1270156052}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2144,12 +2132,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 686475156}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1327168655
@@ -4624,14 +4606,8 @@ SceneRoots:
   - {fileID: 1733765275}
   - {fileID: 1935203417}
 <<<<<<< Updated upstream
-  - {fileID: 882407276}
+
 =======
   - {fileID: 1228128622}
   - {fileID: 686475156}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
