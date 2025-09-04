@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class GhostInteraction : MonoBehaviour
 {
-    private SphereID currentSphere;
+    private SphereInteraction currentSphere;
 
-    // 👈 Public property so GameManager can see it
-    public SphereID CurrentSphere => currentSphere;
+    // Public property for GameManager to access
+    public SphereInteraction CurrentSphere => currentSphere;
 
     void OnTriggerEnter(Collider other)
     {
-        SphereID sphere = other.GetComponent<SphereID>();
+        SphereInteraction sphere = other.GetComponent<SphereInteraction>();
         if (sphere != null)
         {
             currentSphere = sphere;
@@ -18,7 +18,7 @@ public class GhostInteraction : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        SphereID sphere = other.GetComponent<SphereID>();
+        SphereInteraction sphere = other.GetComponent<SphereInteraction>();
         if (sphere != null && sphere == currentSphere)
         {
             currentSphere = null;

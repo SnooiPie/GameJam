@@ -9,13 +9,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - WALLS
   - Water
   - UI
   - OutlineGroup
   - 3DScene
   - UI
-  - 
+  - "ZEM\u0130N"
   - 
   - 
   - 

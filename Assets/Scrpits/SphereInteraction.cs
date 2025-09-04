@@ -16,7 +16,7 @@ public class SphereInteraction : MonoBehaviour
 
     public void TriggerAction()
     {
-        // 👇 This is where unique animations or effects will go
+        // Put unique animation or effect here
         Debug.Log($"Sphere {sphereID} triggered its action!");
     }
 }

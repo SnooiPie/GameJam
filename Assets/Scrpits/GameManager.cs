@@ -10,8 +10,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // Find all spheres with SphereID
-        SphereID[] spheres = FindObjectsOfType<SphereID>();
+        SphereInteraction[] spheres = Object.FindObjectsByType<SphereInteraction>(FindObjectsSortMode.None);
         foreach (var s in spheres)
         {
             allSpheres.Add(s.transform);
@@ -20,12 +19,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (ghost.CurrentSphere != null && Input.GetKeyDown(KeyCode.E))
         {
-            if (ghost != null && ghost.CurrentSphere != null)
+            // Interact with the sphere
+            ghost.CurrentSphere.Interact();
+
+            // Only move character if interaction requirement met
+            if (ghost.CurrentSphere.CanActivate)
             {
-                // 👇 Call MoveToSphere instead of MoveThroughSpheres
-                character.MoveToSphere(ghost.CurrentSphere.transform, ghost.CurrentSphere.GetComponent<SphereInteraction>());
+                character.MoveToSphere(ghost.CurrentSphere.transform, ghost.CurrentSphere);
             }
         }
     }
