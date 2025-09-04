@@ -3,25 +3,31 @@ using UnityEngine;
 public class SphereInteraction : MonoBehaviour
 {
     public int id; // Sphere ID
-    private bool isInteracted = false;
-
-    // Ghost intereact için
-    public void Interact()
+    public bool isCorrectSphere = false; // Inspector'da hangi sphere'lerin doğru olduğunu işaretle
+    
+    public void Collect()
     {
-        if (!isInteracted)
+        Debug.Log($"Sphere {id} collected!");
+        
+        // Doğru veya yanlış sphere kontrolü
+        if (!isCorrectSphere)
         {
-            isInteracted = true;
-            Debug.Log($"Sphere {id} interacted.");
+            FearManager.Instance.IncreaseFear(25f);
+            Debug.Log($"Yanlış sphere! Korku arttı: +25");
         }
+        else
+        {
+            Debug.Log($"Doğru sphere! İlerleme kaydedildi.");
+            // Doğru sphere için ödül veya ilerleme ekleyebilirsin
+        }
+        
+        Destroy(gameObject);
     }
-
-    // Karakter geldiğinde tetiklenecek
-    public void TriggerAction()
+    
+    public void OnDiscovered()
     {
-        Debug.Log($"Sphere {id} collected by character.");
-        Destroy(gameObject); // İster toplama mantığı
+        // Keşfedildiğinde görsel feedback
+        GetComponent<Renderer>().material.color = isCorrectSphere ? Color.green : Color.red;
+        Debug.Log($"Sphere {id} discovered! ({(isCorrectSphere ? "Doğru" : "Yanlış")})");
     }
-
-    // GameManager tarafından kontrol edilecek
-    public bool CanActivate => !isInteracted;
 }

@@ -4,26 +4,28 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public CharacterMovement character;
-    public List<SphereInteraction> allSpheres; // Inspector’dan atanacak
-    public GameObject door; // Kapı objesi
+    public List<Transform> waypoints;
+    public int ghostInteractedSphereID = -1;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && ghostInteractedSphereID >= 0)
         {
-            foreach (var sphere in allSpheres)
+            SphereInteraction target = FindSphereByID(ghostInteractedSphereID);
+            if (target != null)
             {
-                if (sphere.CanActivate && sphere.id == 0) // Örnek: ID 0 ile başlıyoruz
-                {
-                    sphere.Interact();
-                    character.MoveToSphere(sphere.transform, sphere);
-
-                    // Kapı açıldı mantığı
-                    door.SetActive(false);
-                    Debug.Log("Kapı açıldı!");
-                    break; // İlk uygun sphere ile işlemi yap
-                }
+                character.MoveToSphere(waypoints, target);
             }
         }
+    }
+
+    SphereInteraction FindSphereByID(int id)
+    {
+        SphereInteraction[] spheres = FindObjectsOfType<SphereInteraction>();
+        foreach (var s in spheres)
+        {
+            if (s.id == id) return s;
+        }
+        return null;
     }
 }
