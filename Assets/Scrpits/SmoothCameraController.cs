@@ -1,28 +1,25 @@
 using UnityEngine;
 
-public class FollowYZ_LockX : MonoBehaviour
+public class SmoothFollowCamera : MonoBehaviour
 {
-    public Transform target;       // Takip edilecek nesne
-    public float camSpeed = 5f;    // YaklaÅŸma hÄ±zÄ± (unit/s)
-
-    private float lockX;
-
-    void Start()
-    {
-        // KameranÄ±n baÅŸladÄ±ÄŸÄ± X'i kilitle
-        lockX = transform.position.x;
-    }
+    public Transform target;          // Takip edilecek karakter
+    public Vector3 offset = new Vector3(0f, 5f, -7f); // Kameranýn konumu
+    public float smoothSpeed = 0.125f; // Ne kadar yumuþak takip etsin
 
     void LateUpdate()
     {
         if (target == null) return;
 
-        Vector3 p = transform.position;
+        // Hedef pozisyon
+        Vector3 desiredPosition = target.position + offset;
 
-        // hedef Y ve Z'ye yaklaÅŸ
-        float newY = Mathf.MoveTowards(p.y, target.position.y, camSpeed * Time.deltaTime);
-        float newZ = Mathf.MoveTowards(p.z, target.position.z, camSpeed * Time.deltaTime);
+        // Yumuþak geçiþ
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
-        transform.position = new Vector3(lockX, newY, newZ);
+        // Kamerayý hareket ettir
+        transform.position = smoothedPosition;
+
+        // Her zaman karaktere bak
+        transform.LookAt(target);
     }
 }

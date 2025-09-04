@@ -265,13 +265,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
+<<<<<<< Updated upstream
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49ddb857a2e787a45b1c90a27cda896b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmoothFollowCamera
   target: {fileID: 1620917394}
-  camSpeed: 2
+  offset: {x: 0, y: 5, z: -7}
+  smoothSpeed: 0.125
+=======
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49ddb857a2e787a45b1c90a27cda896b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmoothCameraController
+  player: {fileID: 1620917394}
+  mouseSensitivity: 100
+  smoothTime: 0.05
+  pitchLimits: {x: -30, y: 60}
+>>>>>>> Stashed changes
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,8 +710,13 @@ GameObject:
   - component: {fileID: 932444551}
   - component: {fileID: 932444550}
   m_Layer: 0
+<<<<<<< Updated upstream
   m_Name: Cube (1)
   m_TagString: Untagged
+=======
+  m_Name: Player
+  m_TagString: Player
+>>>>>>> Stashed changes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1089,6 +1107,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28769cdfeeeb24e4b9056cb8991f3595, type: 3}
   m_Name: 
+<<<<<<< Updated upstream
   m_EditorClassIdentifier: '::'
   speed: 2
 --- !u!54 &1620917396
@@ -1583,6 +1602,11 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+=======
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  moveSpeed: 5
+  controller: {fileID: 0}
+>>>>>>> Stashed changes
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
