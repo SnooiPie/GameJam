@@ -1,9 +1,23 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    public GhostInteraction ghost;        // drag your Ghost here
-    public CharacterMovement character;   // drag your Character here
+    public GhostInteraction ghost;
+    public CharacterMovement character;
+
+    // Sahnedeki tüm sphere’ler
+    private List<Transform> allSpheres = new List<Transform>();
+
+    void Start()
+    {
+        // SphereID componenti olan tüm objeleri bul
+        SphereID[] spheres = FindObjectsOfType<SphereID>();
+        foreach (var s in spheres)
+        {
+            allSpheres.Add(s.transform);
+        }
+    }
 
     void Update()
     {
@@ -11,7 +25,7 @@ public class GameManager : MonoBehaviour
         {
             if (ghost != null && ghost.CurrentSphere != null)
             {
-                character.MoveToSphere(ghost.CurrentSphere.transform);
+                character.MoveThroughSpheres(allSpheres, ghost.CurrentSphere.transform);
             }
         }
     }
