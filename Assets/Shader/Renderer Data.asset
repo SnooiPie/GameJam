@@ -54,3 +54,20 @@ MonoBehaviour:
   m_DepthTextureFormat: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &3022043497135277939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1334d17dd6dd67b4fa5f7d9193349748, type: 3}
+  m_Name: OutlineFeature
+  m_EditorClassIdentifier: Assembly-CSharp::OutlineFeature
+  m_Active: 1
+  settings:
+    outlineLayer:
+      m_Bits: 64
+    outlineMaterial: {fileID: 2100000, guid: b8aa511c8b3d44b40a66c7c912a44583, type: 2}

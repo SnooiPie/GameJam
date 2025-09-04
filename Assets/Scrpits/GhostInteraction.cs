@@ -2,26 +2,13 @@ using UnityEngine;
 
 public class GhostInteraction : MonoBehaviour
 {
-    private SphereInteraction currentSphere;
+    public SphereInteraction currentSphere;
 
-    // Public property for GameManager to access
-    public SphereInteraction CurrentSphere => currentSphere;
-
-    void OnTriggerEnter(Collider other)
+    void Update()
     {
-        SphereInteraction sphere = other.GetComponent<SphereInteraction>();
-        if (sphere != null)
+        if (currentSphere != null && Input.GetKeyDown(KeyCode.E))
         {
-            currentSphere = sphere;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        SphereInteraction sphere = other.GetComponent<SphereInteraction>();
-        if (sphere != null && sphere == currentSphere)
-        {
-            currentSphere = null;
+            currentSphere.Interact();
         }
     }
 }

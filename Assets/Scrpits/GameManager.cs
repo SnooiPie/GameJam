@@ -1,34 +1,21 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     public GhostInteraction ghost;
     public CharacterMovement character;
-
-    private List<Transform> allSpheres = new List<Transform>();
-
-    void Start()
-    {
-        SphereInteraction[] spheres = Object.FindObjectsByType<SphereInteraction>(FindObjectsSortMode.None);
-        foreach (var s in spheres)
-        {
-            allSpheres.Add(s.transform);
-        }
-    }
+    public GameObject door; // Kapı objesi
 
     void Update()
     {
-        if (ghost.CurrentSphere != null && Input.GetKeyDown(KeyCode.E))
+        if (ghost.currentSphere != null && ghost.currentSphere.CanActivate && Input.GetKeyDown(KeyCode.E))
         {
-            // Interact with the sphere
-            ghost.CurrentSphere.Interact();
+            // Karakter sphere’a hareket ediyor
+            character.MoveToSphere(ghost.currentSphere.transform, ghost.currentSphere);
 
-            // Only move character if interaction requirement met
-            if (ghost.CurrentSphere.CanActivate)
-            {
-                character.MoveToSphere(ghost.CurrentSphere.transform, ghost.CurrentSphere);
-            }
+            // Kapı açıldı durumu
+            door.SetActive(false); // Kapıyı gizle / açıldı mantığı
+            Debug.Log("Kapı açıldı!");
         }
     }
 }
