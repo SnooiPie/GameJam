@@ -2,28 +2,17 @@ using UnityEngine;
 
 public class GhostInteraction : MonoBehaviour
 {
-    private SphereID currentSphere; // the sphere ghost is inside
+    public SphereID CurrentSphere { get; private set; }
 
     void OnTriggerEnter(Collider other)
     {
-        SphereID sphere = other.GetComponent<SphereID>();
-        if (sphere != null)
-        {
-            currentSphere = sphere;
-            Debug.Log("Ghost near sphere " + sphere.id);
-        }
+        var s = other.GetComponent<SphereID>();
+        if (s != null) CurrentSphere = s;
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<SphereID>() == currentSphere)
-        {
-            currentSphere = null;
-        }
-    }
-
-    public SphereID GetCurrentSphere()
-    {
-        return currentSphere;
+        var s = other.GetComponent<SphereID>();
+        if (s != null && s == CurrentSphere) CurrentSphere = null;
     }
 }

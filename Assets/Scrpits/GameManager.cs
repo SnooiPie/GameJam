@@ -2,17 +2,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GhostInteraction ghost;
-    public CharacterMovement character;
+    public GhostInteraction ghost;        // drag your Ghost here
+    public CharacterMovement character;   // drag your Character here
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            SphereID sphere = ghost.GetCurrentSphere();
-            if (sphere != null)
+            if (ghost != null && ghost.CurrentSphere != null)
             {
-                character.MoveToSphere(sphere.transform);
+                character.MoveToSphere(ghost.CurrentSphere.transform);
             }
         }
     }

@@ -1,35 +1,33 @@
 using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
-{
-    public float speed = 5f;
 
-    void Start()
-    {
-        // Eğer Rigidbody varsa etkisizleştirelim
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.useGravity = false;
-            rb.isKinematic = true;
-        }
-    }
+{
+    public float speed = 3f;
+    public float stopDistance = 0.1f;
+
+    private Transform target;
 
     void Update()
     {
-        // A/D tuşları = Horizontal input
-        float move = Input.GetAxis("Horizontal");
+        if (target == null) return;
 
-        // Ama hareketi X yerine Z eksenine uygula
-        Vector3 movement = new Vector3(0, 0, move) * speed * Time.deltaTime;
+        // Move ONLY on Z toward target
+        float targetZ = target.position.z;
+        float newZ = Mathf.MoveTowards(transform.position.z, targetZ, speed * Time.deltaTime);
+        transform.position = new Vector3(transform.position.x, transform.position.y, newZ);
 
-        transform.Translate(movement, Space.World);
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Sphere"))
+        if (Mathf.Abs(transform.position.z - targetZ) <= stopDistance)
         {
-            Debug.Log("Ghost touched the sphere!");
+            // reached
+            target = null;
+            // You can trigger “checked” logic here
         }
+    }
+
+    // <-- THIS is the method GameManager calls
+    public void MoveToSphere(Transform sphere)
+    {
+        target = sphere;
     }
 }
