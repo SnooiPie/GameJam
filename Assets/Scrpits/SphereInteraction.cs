@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class SphereInteraction : MonoBehaviour
 {
-    public int id = 0;
+    public int id; // Sphere ID
     private bool isInteracted = false;
 
+    // Ghost intereact için
     public void Interact()
     {
         if (!isInteracted)
@@ -14,11 +15,13 @@ public class SphereInteraction : MonoBehaviour
         }
     }
 
+    // Karakter geldiğinde tetiklenecek
     public void TriggerAction()
     {
         Debug.Log($"Sphere {id} collected by character.");
-        Destroy(gameObject); // Sphere toplandıktan sonra yok edilebilir
+        Destroy(gameObject); // İster toplama mantığı
     }
 
+    // GameManager tarafından kontrol edilecek
     public bool CanActivate => !isInteracted;
 }
