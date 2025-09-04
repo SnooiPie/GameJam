@@ -6,7 +6,6 @@ public class GhostController : MonoBehaviour
 
     void Start()
     {
-        // Eğer Rigidbody varsa etkisizleştirelim
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -17,14 +16,14 @@ public class GhostController : MonoBehaviour
 
     void Update()
     {
-        // A/D tuşları = Horizontal input
-        float move = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Horizontal");
+        float moveX = Input.GetAxis("Vertical");
 
-        // Ama hareketi X yerine Z eksenine uygula
-        Vector3 movement = new Vector3(0, 0, move) * speed * Time.deltaTime;
+        Vector3 movement = new Vector3(moveX, 0, moveZ) * speed * Time.deltaTime;
 
         transform.Translate(movement, Space.World);
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Sphere"))
