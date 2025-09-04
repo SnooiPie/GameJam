@@ -948,9 +948,13 @@ GameObject:
   - component: {fileID: 1620917392}
   - component: {fileID: 1620917395}
   - component: {fileID: 1620917396}
+<<<<<<< Updated upstream
   - component: {fileID: 1620917397}
   - component: {fileID: 1620917398}
   m_Layer: 0
+=======
+  m_Layer: 6
+>>>>>>> Stashed changes
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -982,7 +986,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b8aa511c8b3d44b40a66c7c912a44583, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
