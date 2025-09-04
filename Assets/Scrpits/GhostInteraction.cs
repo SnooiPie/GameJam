@@ -2,17 +2,37 @@ using UnityEngine;
 
 public class GhostInteraction : MonoBehaviour
 {
-    public SphereID CurrentSphere { get; private set; }
+    private SphereInteraction currentSphere;
 
     void OnTriggerEnter(Collider other)
     {
-        var s = other.GetComponent<SphereID>();
-        if (s != null) CurrentSphere = s;
+        SphereInteraction sphere = other.GetComponent<SphereInteraction>();
+        if (sphere != null)
+        {
+            currentSphere = sphere;
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        var s = other.GetComponent<SphereID>();
-        if (s != null && s == CurrentSphere) CurrentSphere = null;
+        if (other.GetComponent<SphereInteraction>() == currentSphere)
+        {
+            currentSphere = null;
+        }
+    }
+
+    void Update()
+    {
+        if (currentSphere != null && Input.GetKeyDown(KeyCode.E))
+        {
+            currentSphere.Interact();
+
+            // Only move if the sphere is ready (interactions reached)
+            if (currentSphere.CanActivate)
+            {
+                CharacterMovement character = FindObjectOfType<CharacterMovement>();
+                character.MoveToSphere(currentSphere.transform, currentSphere);
+            }
+        }
     }
 }

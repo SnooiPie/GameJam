@@ -1,67 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public float speed = 3f;
-    public float stopDistance = 0.1f;
-    public float waitTime = 1.5f; // her sphere’de bekleme süresi
+    public float moveSpeed = 5f;
 
-    private Queue<Transform> sphereQueue = new Queue<Transform>();
-    private Transform currentTarget;
-    private bool isMoving = false;
+    private Transform targetSphere;
+    private SphereInteraction targetInteraction;
 
     void Update()
     {
-        if (currentTarget == null || !isMoving) return;
-
-        // Z ekseninde hareket
-        float targetZ = currentTarget.position.z;
-        float newZ = Mathf.MoveTowards(transform.position.z, targetZ, speed * Time.deltaTime);
-        transform.position = new Vector3(transform.position.x, transform.position.y, newZ);
-
-        if (Mathf.Abs(transform.position.z - targetZ) <= stopDistance)
+        if (targetSphere != null)
         {
-            StartCoroutine(WaitAndNext());
+            Vector3 targetPos = new Vector3(targetSphere.position.x, transform.position.y, targetSphere.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, targetPos) < 0.05f)
+            {
+                // Trigger unique action of that sphere
+                targetInteraction.TriggerAction();
+
+                // Done
+                targetSphere = null;
+                targetInteraction = null;
+            }
         }
     }
 
-    IEnumerator WaitAndNext()
+    public void MoveToSphere(Transform sphere, SphereInteraction interaction)
     {
-        isMoving = false;
-        yield return new WaitForSeconds(waitTime);
-
-        if (sphereQueue.Count > 0)
-        {
-            currentTarget = sphereQueue.Dequeue();
-            isMoving = true;
-        }
-        else
-        {
-            currentTarget = null;
-        }
-    }
-
-    // Ghost'tan çağrılacak method
-    public void MoveThroughSpheres(List<Transform> spheres, Transform finalSphere)
-    {
-        sphereQueue.Clear();
-
-        // önce diğer sphere’leri sıraya ekle
-        foreach (Transform s in spheres)
-        {
-            if (s != finalSphere)
-                sphereQueue.Enqueue(s);
-        }
-
-        // en sona doğru sphere’i ekle
-        sphereQueue.Enqueue(finalSphere);
-
-        if (sphereQueue.Count > 0)
-        {
-            currentTarget = sphereQueue.Dequeue();
-            isMoving = true;
-        }
+        targetSphere = sphere;
+        targetInteraction = interaction;
     }
 }
