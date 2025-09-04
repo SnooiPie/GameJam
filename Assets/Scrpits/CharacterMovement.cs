@@ -29,3 +29,4 @@ public class CharacterMovement : MonoBehaviour
         targetInteraction = interaction;
     }
 }
+
