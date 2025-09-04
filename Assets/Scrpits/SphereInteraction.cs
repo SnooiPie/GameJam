@@ -3,25 +3,17 @@ using UnityEngine;
 public class SphereInteraction : MonoBehaviour
 {
     public int id; // Sphere ID
-    private bool isInteracted = false;
-
-    // Ghost intereact için
-    public void Interact()
+    
+    public void Collect()
     {
-        if (!isInteracted)
-        {
-            isInteracted = true;
-            Debug.Log($"Sphere {id} interacted.");
-        }
+        Debug.Log($"Sphere {id} collected!");
+        Destroy(gameObject);
     }
-
-    // Karakter geldiğinde tetiklenecek
-    public void TriggerAction()
+    
+    public void OnDiscovered()
     {
-        Debug.Log($"Sphere {id} collected by character.");
-        Destroy(gameObject); // İster toplama mantığı
+        // Keşfedildiğinde görsel feedback
+        GetComponent<Renderer>().material.color = Color.yellow;
+        Debug.Log($"Sphere {id} discovered!");
     }
-
-    // GameManager tarafından kontrol edilecek
-    public bool CanActivate => !isInteracted;
 }

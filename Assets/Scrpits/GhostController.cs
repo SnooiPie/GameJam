@@ -3,9 +3,11 @@ using UnityEngine;
 public class GhostController : MonoBehaviour
 {
     public float speed = 5f;
+    public GhostInteraction interactionHandler;
 
     void Start()
     {
+        // Eğer Rigidbody varsa etkisizleştirelim
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -16,11 +18,11 @@ public class GhostController : MonoBehaviour
 
     void Update()
     {
-        float moveZ = Input.GetAxis("Horizontal");
-        float moveX = Input.GetAxis("Vertical");
+        // A/D tuşları = Horizontal input
+        float move = Input.GetAxis("Horizontal");
 
-        Vector3 movement = new Vector3(-moveX, 0, moveZ) * speed * Time.deltaTime;
-
+        // Hareketi Z eksenine uygula
+        Vector3 movement = new Vector3(0, 0, move) * speed * Time.deltaTime;
         transform.Translate(movement, Space.World);
     }
 
@@ -28,7 +30,11 @@ public class GhostController : MonoBehaviour
     {
         if (other.CompareTag("Sphere"))
         {
-            Debug.Log("Ghost touched the sphere!");
+            SphereInteraction sphere = other.GetComponent<SphereInteraction>();
+            if (sphere != null)
+            {
+                interactionHandler.DiscoverSphere(sphere);
+            }
         }
     }
 }
