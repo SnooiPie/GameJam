@@ -23,15 +23,22 @@ public class GhostInteraction : MonoBehaviour
         {
             discoveredSpheres.Add(sphere);
             sphere.OnDiscovered();
-            Debug.Log($"Discovered sphere with ID: {sphere.id}. Press E to send AI.");
+            
+            string sphereType = sphere.isCorrectSphere ? "Doğru" : "Yanlış";
+            Debug.Log($"Keşfedildi: Sphere {sphere.id} ({sphereType}). E tuşuna basarak AI gönder.");
             
             // Tüm keşfedilen sphere'leri göster
-            string available = "Discovered spheres: ";
-            foreach (SphereInteraction s in discoveredSpheres)
-            {
-                available += s.id + " ";
-            }
-            Debug.Log(available);
+            ShowDiscoveredSpheres();
         }
+    }
+    
+    void ShowDiscoveredSpheres()
+    {
+        string available = "Keşfedilen Sphere'ler: ";
+        foreach (SphereInteraction s in discoveredSpheres)
+        {
+            available += $"{s.id}({(s.isCorrectSphere ? "✓" : "✗")}) ";
+        }
+        Debug.Log(available);
     }
 }
