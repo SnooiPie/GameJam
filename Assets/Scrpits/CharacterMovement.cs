@@ -18,11 +18,18 @@ public class CharacterMovement : MonoBehaviour
     void Update()
     {
         // A/D tuşları = Horizontal input
-        float move = Input.GetAxis("Horizontal"); 
+        float move = Input.GetAxis("Horizontal");
 
         // Ama hareketi X yerine Z eksenine uygula
         Vector3 movement = new Vector3(0, 0, move) * speed * Time.deltaTime;
 
         transform.Translate(movement, Space.World);
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Sphere"))
+        {
+            Debug.Log("Ghost touched the sphere!");
+        }
     }
 }
