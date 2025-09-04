@@ -1,21 +1,29 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    public GhostInteraction ghost;
     public CharacterMovement character;
+    public List<SphereInteraction> allSpheres; // Inspector’dan atanacak
     public GameObject door; // Kapı objesi
 
     void Update()
     {
-        if (ghost.currentSphere != null && ghost.currentSphere.CanActivate && Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            // Karakter sphere’a hareket ediyor
-            character.MoveToSphere(ghost.currentSphere.transform, ghost.currentSphere);
+            foreach (var sphere in allSpheres)
+            {
+                if (sphere.CanActivate && sphere.id == 0) // Örnek: ID 0 ile başlıyoruz
+                {
+                    sphere.Interact();
+                    character.MoveToSphere(sphere.transform, sphere);
 
-            // Kapı açıldı durumu
-            door.SetActive(false); // Kapıyı gizle / açıldı mantığı
-            Debug.Log("Kapı açıldı!");
+                    // Kapı açıldı mantığı
+                    door.SetActive(false);
+                    Debug.Log("Kapı açıldı!");
+                    break; // İlk uygun sphere ile işlemi yap
+                }
+            }
         }
     }
 }

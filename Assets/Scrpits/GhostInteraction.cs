@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class GhostInteraction : MonoBehaviour
 {
-    public SphereInteraction currentSphere;
-
+    // Ghost artık sadece E tuşunu basmayı sağlar
+    // Sphere seçimi GameManager üzerinden yapılır
     void Update()
     {
-        if (currentSphere != null && Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            currentSphere.Interact();
+            // GameManager logic’ine bağlı
         }
     }
 }
