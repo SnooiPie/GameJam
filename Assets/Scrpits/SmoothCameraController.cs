@@ -1,25 +1,35 @@
+using System;
 using UnityEngine;
 
 public class SmoothFollowCamera : MonoBehaviour
 {
-    public Transform target;          // Takip edilecek karakter
-    public Vector3 offset = new Vector3(0f, 5f, -7f); // Kameranýn konumu
-    public float smoothSpeed = 0.125f; // Ne kadar yumuþak takip etsin
+    public Transform target;              // Takip edilecek karakter
+    public Transform[] cameraPositions;   // 4 farklÄ± kamera noktasÄ±
+    public float smoothSpeed = 0.125f;    // KameranÄ±n ne kadar yumuÅŸak hareket edeceÄŸi
 
     void LateUpdate()
     {
-        if (target == null) return;
+        if (target == null || cameraPositions.Length == 0) return;
 
-        // Hedef pozisyon
-        Vector3 desiredPosition = target.position + offset;
+        // En yakÄ±n kamera pozisyonunu bul
+        Transform closestCamPos = cameraPositions[0];
+        float closestDistance = Vector3.Distance(target.position, closestCamPos.position);
 
-        // Yumuþak geçiþ
+        foreach (Transform camPos in cameraPositions)
+        {
+            float distance = Vector3.Distance(target.position, camPos.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestCamPos = camPos;
+            }
+        }
+
+        // KameranÄ±n hedef pozisyonu
+        Vector3 desiredPosition = closestCamPos.position;
+
+        // Smooth hareket
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-
-        // Kamerayý hareket ettir
         transform.position = smoothedPosition;
-
-        // Her zaman karaktere bak
-        transform.LookAt(target);
     }
 }
