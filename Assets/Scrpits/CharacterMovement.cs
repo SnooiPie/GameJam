@@ -1,31 +1,61 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-
-    private Transform targetSphere;
-    private SphereInteraction targetInteraction;
-
+    public List<Transform> waypoints;       // AI karakterin geçeceği waypointler
+    public float moveSpeed = 3f;
+    
+    private SphereInteraction targetSphere;
+    private bool isMoving = false;
+    private int currentWaypointIndex = 0;
+    
     void Update()
     {
-        if (targetSphere != null)
+        if (isMoving)
         {
-            Vector3 targetPos = new Vector3(targetSphere.position.x, transform.position.y, targetSphere.position.z);
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-
-            if (Vector3.Distance(transform.position, targetPos) < 0.05f)
-            {
-                targetInteraction.TriggerAction();
-                targetSphere = null;
-                targetInteraction = null;
-            }
+            MoveToTarget();
         }
     }
-
-    public void MoveToSphere(Transform sphere, SphereInteraction interaction)
+    
+    public void MoveToSphere(List<Transform> pathWaypoints, SphereInteraction sphere)
     {
+        if (isMoving) return;
+        
+        waypoints = pathWaypoints; // Use the provided waypoints
         targetSphere = sphere;
-        targetInteraction = interaction;
+        currentWaypointIndex = 0;
+        isMoving = true;
+        Debug.Log($"AI moving to sphere ID: {targetSphere.id}");
+    }
+    
+    private void MoveToTarget()
+    {
+        if (currentWaypointIndex < waypoints.Count)
+        {
+            // Move to the current waypoint
+            Transform targetWaypoint = waypoints[currentWaypointIndex];
+            transform.position = Vector3.MoveTowards(
+                transform.position, 
+                targetWaypoint.position, 
+                moveSpeed * Time.deltaTime
+            );
+            
+            // Check if reached the waypoint
+            if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f)
+            {
+                currentWaypointIndex++;
+            }
+        }
+        else
+        {
+            // Reached the final waypoint (near the sphere)
+            isMoving = false;
+            if (targetSphere != null)
+            {
+                targetSphere.Collect();
+                targetSphere = null;
+            }
+        }
     }
 }
