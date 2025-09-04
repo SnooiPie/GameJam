@@ -6,12 +6,11 @@ public class GameManager : MonoBehaviour
     public GhostInteraction ghost;
     public CharacterMovement character;
 
-    // Sahnedeki tüm sphere’ler
     private List<Transform> allSpheres = new List<Transform>();
 
     void Start()
     {
-        // SphereID componenti olan tüm objeleri bul
+        // Find all spheres with SphereID
         SphereID[] spheres = FindObjectsOfType<SphereID>();
         foreach (var s in spheres)
         {
@@ -25,7 +24,8 @@ public class GameManager : MonoBehaviour
         {
             if (ghost != null && ghost.CurrentSphere != null)
             {
-                character.MoveThroughSpheres(allSpheres, ghost.CurrentSphere.transform);
+                // 👇 Call MoveToSphere instead of MoveThroughSpheres
+                character.MoveToSphere(ghost.CurrentSphere.transform, ghost.CurrentSphere.GetComponent<SphereInteraction>());
             }
         }
     }

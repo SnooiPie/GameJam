@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class GhostInteraction : MonoBehaviour
 {
-    private SphereInteraction currentSphere;
+    private SphereID currentSphere;
+
+    // 👈 Public property so GameManager can see it
+    public SphereID CurrentSphere => currentSphere;
 
     void OnTriggerEnter(Collider other)
     {
-        SphereInteraction sphere = other.GetComponent<SphereInteraction>();
+        SphereID sphere = other.GetComponent<SphereID>();
         if (sphere != null)
         {
             currentSphere = sphere;
@@ -15,24 +18,10 @@ public class GhostInteraction : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<SphereInteraction>() == currentSphere)
+        SphereID sphere = other.GetComponent<SphereID>();
+        if (sphere != null && sphere == currentSphere)
         {
             currentSphere = null;
-        }
-    }
-
-    void Update()
-    {
-        if (currentSphere != null && Input.GetKeyDown(KeyCode.E))
-        {
-            currentSphere.Interact();
-
-            // Only move if the sphere is ready (interactions reached)
-            if (currentSphere.CanActivate)
-            {
-                CharacterMovement character = FindObjectOfType<CharacterMovement>();
-                character.MoveToSphere(currentSphere.transform, currentSphere);
-            }
         }
     }
 }
