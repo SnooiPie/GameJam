@@ -506,6 +506,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d7041ff699d90a4e8472511a989b881, type: 3}
       insertIndex: -1
       addedObject: {fileID: 987400213}
+    - targetCorrespondingSourceObject: {fileID: -8961359253771211100, guid: 6d7041ff699d90a4e8472511a989b881, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 708098760}
   m_SourcePrefab: {fileID: 100100000, guid: 6d7041ff699d90a4e8472511a989b881, type: 3}
 --- !u!1 &485889520
 GameObject:
@@ -727,6 +730,7 @@ GameObject:
   - component: {fileID: 567566118}
   - component: {fileID: 567566122}
   - component: {fileID: 567566123}
+  - component: {fileID: 567566124}
   m_Layer: 0
   m_Name: Sphere (2)
   m_TagString: Sphere
@@ -853,6 +857,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   sphereID: 0
   requiredInteractions: 2
+--- !u!65 &567566124
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567566117}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &708098756 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8961359253771211100, guid: 6d7041ff699d90a4e8472511a989b881, type: 3}
+  m_PrefabInstance: {fileID: 332404556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &708098760
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708098756}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.020000007, y: 0.066783704, z: 0.13995929}
+  m_Center: {x: 1.4551915e-11, y: 0.023391847, z: 0.00024469936}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,7 +1088,7 @@ Transform:
   m_GameObject: {fileID: 1231587674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 1.73, z: -5.4}
+  m_LocalPosition: {x: 1.67, y: 1.73, z: -1.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
