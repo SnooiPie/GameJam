@@ -10773,7 +10773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539b773bfe1ea534f9cc622bb09025d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  correctPassword: 09/09/1960
+  correctPassword: 09091960
   doorObject: {fileID: 2087899480}
   openRotation: {x: 90, y: 0, z: 0}
   passwordCanvas: {fileID: 1003886596}
