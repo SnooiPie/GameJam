@@ -68,7 +68,7 @@ public class GhostController : MonoBehaviour
                     GameManager.Instance.SetCurrentSphereID(sphere.id);
                     Debug.Log($"Sphere {sphere.id} seçildi. E tuşu ile AI gönder.");
                 }
-                
+
                 sphere.HighlightTemporarily();
             }
         }

@@ -1,78 +1,119 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    
-    public CharacterMovement character;
-    public List<Transform> waypoints;
+
     public int currentSphereID = -1;
-    private SphereInteraction currentTargetSphere; // Mevcut hedef sphere'i takip et
+    public List<int> collectedDisks = new List<int>();
+    public int[] correctDiskSequence = { 1, 2, 3 };
+    private int currentExpectedDiskIndex = 0;
+
+    // UI Elements - IMAGE BASED
+    public Image[] diskSlots = new Image[3]; // 3 tane image slotu
+    public Sprite[] diskSprites = new Sprite[3]; // K, M, Y sprite'ları
+    public Sprite emptySlotSprite; // Boş slot sprite'ı
+    public GameObject diskUIPanel; // Disk UI paneli
 
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+
+        // Başlangıçta slotları boş göster
+        UpdateDisksUI();
     }
 
-    void Update()
+    public void SetCurrentSphereID(int id)
     {
-        if (Input.GetKeyDown(KeyCode.E) && currentSphereID != -1)
-        {
-            // Mevcut hedef sphere'i bul
-            currentTargetSphere = FindSphereByID(currentSphereID);
-            
-            if (currentTargetSphere != null && character != null)
-            {
-                Debug.Log($"AI, {currentTargetSphere.id} ID'li sphere'e gönderiliyor...");
-                
-                // ID'yi hemen temizle (tekrar E basmayı engelle)
-                int sentSphereID = currentSphereID;
-                currentSphereID = -1;
-                
-                character.MoveToSphere(waypoints, currentTargetSphere, sentSphereID);
-            }
-            else
-            {
-                Debug.LogError("Sphere veya karakter bulunamadı!");
-            }
-        }
-    }
-
-    public void SetCurrentSphereID(int sphereID)
-    {
-        // Sadece yeni bir sphere seçilirse güncelle
-        if (sphereID != currentSphereID)
-        {
-            currentSphereID = sphereID;
-            Debug.Log($"GameManager: Sphere ID {sphereID} ayarlandı");
-        }
+        currentSphereID = id;
     }
 
     public void ClearCurrentSphereID()
     {
         currentSphereID = -1;
-        currentTargetSphere = null;
-        Debug.Log("GameManager: Sphere ID temizlendi");
     }
 
-    SphereInteraction FindSphereByID(int id)
+    // Özel kaset toplandığında
+    public void OnSpecialKasetCollected()
     {
-        SphereInteraction[] spheres = FindObjectsOfType<SphereInteraction>();
-        foreach (var sphere in spheres)
+        collectedDisks.AddRange(new int[] { 1, 2, 3 });
+        UpdateDisksUI();
+        diskUIPanel.SetActive(true);
+        Debug.Log("3 müzik diski envantere eklendi!");
+    }
+
+    // UI Güncelleme - IMAGE BASED
+    public void UpdateDisksUI()
+    {
+        for (int i = 0; i < diskSlots.Length; i++)
         {
-            if (sphere.id == id && sphere.gameObject.activeInHierarchy)
+            if (diskSlots[i] != null)
             {
-                return sphere;
+                if (i < collectedDisks.Count)
+                {
+                    // Diski göster
+                    int diskID = collectedDisks[i];
+                    diskSlots[i].sprite = diskSprites[diskID - 1]; // ID 1-based
+                    diskSlots[i].color = Color.white;
+                }
+                else
+                {
+                    // Boş slot
+                    diskSlots[i].sprite = emptySlotSprite;
+                    diskSlots[i].color = Color.gray;
+                }
             }
         }
-        return null;
+    }
+
+    // Müzik kutusu etkileşimi
+    public bool TryInteractWithMusicBox(int boxIndex)
+    {
+        if (collectedDisks.Count == 0)
+        {
+            Debug.Log("Hiç disk yok!");
+            return false;
+        }
+
+        if (currentExpectedDiskIndex < correctDiskSequence.Length)
+        {
+            int expectedDisk = correctDiskSequence[currentExpectedDiskIndex];
+
+            if (collectedDisks[0] == expectedDisk)
+            {
+                // DOĞRU - İlk diski kaldır
+                collectedDisks.RemoveAt(0);
+                currentExpectedDiskIndex++;
+                UpdateDisksUI();
+
+                Debug.Log($"Doğru! Kutu {boxIndex}'e disk yerleştirildi.");
+
+                if (collectedDisks.Count == 0)
+                {
+                    Debug.Log("TEBRİKLER! Puzzle çözüldü!");
+                    diskUIPanel.SetActive(false);
+                }
+
+                return true;
+            }
+        }
+
+        // YANLIŞ
+        Debug.Log("Yanlış sıra! Fear arttı.");
+        if (FearManager.Instance != null)
+        {
+            FearManager.Instance.IncreaseFear(30f);
+        }
+        return false;
     }
 }
