@@ -26,6 +26,8 @@ public class SphereInteraction : MonoBehaviour
     }
 
     public void Collect()
+{
+    if (!isCorrectSphere && FearManager.Instance != null)
     {
         Debug.Log($"Sphere {id} toplandı! - Tür: {(isSpecialKaset ? "Kaset" : "Disk")}");
 
@@ -43,6 +45,28 @@ public class SphereInteraction : MonoBehaviour
     }
 
     internal void HighlightTemporarily()
+        FearManager.Instance.ChangeFear(25f);
+    }
+
+    // ------------------- EKLE -------------------
+    CharacterMovement ai = FindObjectOfType<CharacterMovement>();
+    if (ai != null)
+    {
+        ai.TeleportInstantly(transform.position);
+    }
+    // ------------------- EKLE -------------------
+
+    if (GameManager.Instance != null && GameManager.Instance.currentSphereID == id)
+    {
+        GameManager.Instance.ClearCurrentSphereID();
+    }
+
+    Destroy(gameObject);
+}
+
+
+    
+    public void HighlightTemporarily()
     {
         throw new NotImplementedException();
     }

@@ -310,6 +310,25 @@ public class CharacterMovement : MonoBehaviour
         return bestWaypoint;
     }
 
+public void TeleportInstantly(Vector3 targetPosition)
+{
+    if (agent == null) return;
+
+    // Mevcut coroutine veya path varsa durdur
+    StopMovement();
+
+    // NavMesh üzerinde geçerli bir pozisyon bul
+    NavMeshHit hit;
+    if (NavMesh.SamplePosition(targetPosition, out hit, 2f, NavMesh.AllAreas))
+    {
+        agent.Warp(hit.position);
+    }
+    else
+    {
+        agent.Warp(targetPosition); // fallback
+    }
+}
+
     public void StopMovement()
     {
         if (movementCoroutine != null)
