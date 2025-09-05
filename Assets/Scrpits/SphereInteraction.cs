@@ -2,32 +2,43 @@ using UnityEngine;
 
 public class SphereInteraction : MonoBehaviour
 {
-    public int id; // Sphere ID
-    public bool isCorrectSphere = false; // Inspector'da hangi sphere'lerin doğru olduğunu işaretle
+    public int id;
+    public bool isCorrectSphere = false;
     
     public void Collect()
     {
-        Debug.Log($"Sphere {id} collected!");
+        Debug.Log($"Sphere {id} toplandı!");
         
-        // Doğru veya yanlış sphere kontrolü
-        if (!isCorrectSphere)
+        if (!isCorrectSphere && FearManager.Instance != null)
         {
             FearManager.Instance.IncreaseFear(25f);
-            Debug.Log($"Yanlış sphere! Korku arttı: +25");
         }
-        else
+        
+        // GameManager'daki ID'yi temizle
+        if (GameManager.Instance != null && GameManager.Instance.currentSphereID == id)
         {
-            Debug.Log($"Doğru sphere! İlerleme kaydedildi.");
-            // Doğru sphere için ödül veya ilerleme ekleyebilirsin
+            GameManager.Instance.ClearCurrentSphereID();
         }
         
         Destroy(gameObject);
     }
     
-    public void OnDiscovered()
+    public void HighlightTemporarily()
     {
-        // Keşfedildiğinde görsel feedback
-        GetComponent<Renderer>().material.color = isCorrectSphere ? Color.green : Color.red;
-        Debug.Log($"Sphere {id} discovered! ({(isCorrectSphere ? "Doğru" : "Yanlış")})");
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material.color = Color.yellow;
+            Invoke("ResetColor", 2f);
+        }
+    }
+    
+    private void ResetColor()
+    {
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material.color = isCorrectSphere ? Color.green : Color.red;
+        }
     }
 }
