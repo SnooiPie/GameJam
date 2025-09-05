@@ -4903,10 +4903,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d80fd9ba79861347890c649a3676d8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostInteraction
-  aiCharacter: {fileID: 1231587679}
-  discoveredSpheres:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &1228128625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4920,7 +4916,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostController
   speed: 5
-  interactionHandler: {fileID: 0}
 --- !u!4 &1228128628 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3896139f127b6bd40a71e8fd561346ab, type: 3}
@@ -7559,7 +7554,16 @@ PrefabInstance:
       addedObject: {fileID: 1834701067}
     - targetCorrespondingSourceObject: {fileID: 281855664364225751, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1834701071}
+      addedObject: {fileID: 1834701072}
+    - targetCorrespondingSourceObject: {fileID: 281855664364225751, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1834701073}
+    - targetCorrespondingSourceObject: {fileID: -2045257923548263128, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1228151287}
+    - targetCorrespondingSourceObject: {fileID: -2045257923548263128, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1228151288}
     - targetCorrespondingSourceObject: {fileID: -6763858364670572316, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1412828226}
@@ -10495,7 +10499,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -10545,16 +10549,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539b773bfe1ea534f9cc622bb09025d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  correctPassword: 1234
-  doorAnimator: {fileID: 0}
-  openAnimation: Open
-  closeAnimation: Close
+  correctPassword: 09/09/1960
+  doorObject: {fileID: 2087899480}
+  openRotation: {x: 90, y: 0, z: 0}
   passwordCanvas: {fileID: 1003886596}
   passwordInputField: {fileID: 2094245497}
   messageText: {fileID: 942745268}
   submitButton: {fileID: 1810963528}
   closeButton: {fileID: 1908874044}
-  interactionDistance: 3
+  interactionText: {fileID: 0}
   interactionKey: 101
 --- !u!1 &2094245493
 GameObject:

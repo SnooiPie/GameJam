@@ -4,40 +4,51 @@ using System.Collections;
 
 public class DoorPasswordSystem : MonoBehaviour
 {
-    [Header("Door Settings")]
+    [Header("Kapı Ayarları")]
     public string correctPassword = "1234"; // Doğru şifre
-    public Animator doorAnimator; // Kapı animatorü
-    public string openAnimation = "Open"; // Açılma animasyonu adı
-    public string closeAnimation = "Close"; // Kapanma animasyonu adı
+    public GameObject doorObject; // Kapı objesi
+    public Vector3 openRotation = new Vector3(0, 90, 0); // Kapı açılma rotasyonu
 
-    [Header("UI Settings")]
+    [Header("UI Ayarları")]
     public Canvas passwordCanvas; // Şifre canvas'ı
     public InputField passwordInputField; // Şifre giriş input'u
     public Text messageText; // Mesaj text'i
     public Button submitButton; // Gönder butonu
     public Button closeButton; // Kapat butonu
 
-    [Header("Interaction Settings")]
-    public float interactionDistance = 3f; // Etkileşim mesafesi
+    [Header("Etkileşim Ayarları")]
+    public Text interactionText; // "E'ye bas" yazısı
     public KeyCode interactionKey = KeyCode.E; // Etkileşim tuşu
 
-    private bool isInRange = false;
+    private bool isInTrigger = false;
     private bool isDoorOpen = false;
-    private Camera playerCamera;
+    private Vector3 originalDoorRotation;
 
     void Start()
     {
-        playerCamera = Camera.main;
         InitializeUI();
+        
+        // Kapının orijinal rotasyonunu kaydet
+        if (doorObject != null)
+        {
+            originalDoorRotation = doorObject.transform.eulerAngles;
+        }
     }
 
     void InitializeUI()
     {
+        // Başlangıçta UI elementlerini gizle
         if (passwordCanvas != null)
         {
             passwordCanvas.gameObject.SetActive(false);
         }
 
+        if (interactionText != null)
+        {
+            interactionText.gameObject.SetActive(false);
+        }
+
+        // Buton eventlerini ayarla
         if (submitButton != null)
         {
             submitButton.onClick.AddListener(CheckPassword);
@@ -48,30 +59,39 @@ public class DoorPasswordSystem : MonoBehaviour
             closeButton.onClick.AddListener(CloseCanvas);
         }
 
+        // Input field eventi (Enter ile gönderme)
         if (passwordInputField != null)
         {
-            // Enter tuşu ile gönderme
             passwordInputField.onEndEdit.AddListener(delegate { OnInputEndEdit(); });
         }
     }
 
     void Update()
     {
-        CheckPlayerDistance();
         HandleInteraction();
     }
 
-    void CheckPlayerDistance()
+    void OnTriggerEnter(Collider other)
     {
-        if (playerCamera == null) return;
-
-        float distance = Vector3.Distance(transform.position, playerCamera.transform.position);
-        isInRange = distance <= interactionDistance;
-
-        // Eğer çok uzaktaysak canvas'ı kapat
-        if (!isInRange && passwordCanvas != null && passwordCanvas.gameObject.activeSelf)
+        if (other.CompareTag("Player") && !isDoorOpen)
         {
-            CloseCanvas();
+            isInTrigger = true;
+            ShowInteractionText(true);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isInTrigger = false;
+            ShowInteractionText(false);
+            
+            // Eğer dışarı çıkılırsa canvas'ı da kapat
+            if (passwordCanvas != null && passwordCanvas.gameObject.activeSelf)
+            {
+                CloseCanvas();
+            }
         }
     }
 
@@ -84,8 +104,8 @@ public class DoorPasswordSystem : MonoBehaviour
             return;
         }
 
-        // E tuşu ile etkileşim
-        if (isInRange && Input.GetKeyDown(interactionKey) && !isDoorOpen)
+        // E tuşu ile etkileşim (sadece trigger içindeyse ve kapı kapalıysa)
+        if (isInTrigger && Input.GetKeyDown(interactionKey) && !isDoorOpen)
         {
             if (!passwordCanvas.gameObject.activeSelf)
             {
@@ -96,9 +116,22 @@ public class DoorPasswordSystem : MonoBehaviour
 
     void OnInputEndEdit()
     {
+        // Enter tuşu ile gönderme
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             CheckPassword();
+        }
+    }
+
+    void ShowInteractionText(bool show)
+    {
+        if (interactionText != null)
+        {
+            interactionText.gameObject.SetActive(show);
+            if (show)
+            {
+                interactionText.text = "E'ye basarak şifre gir";
+            }
         }
     }
 
@@ -108,7 +141,7 @@ public class DoorPasswordSystem : MonoBehaviour
         {
             passwordCanvas.gameObject.SetActive(true);
             
-            // Input field'ı temizle ve focusla
+            // Input field'ı hazırla
             if (passwordInputField != null)
             {
                 passwordInputField.text = "";
@@ -116,12 +149,17 @@ public class DoorPasswordSystem : MonoBehaviour
                 passwordInputField.ActivateInputField();
             }
 
-            // UI ayarları
+            // SADECE fare imlecini göster, kilidini açma (FPS oyunu için)
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            Time.timeScale = 0f; // Oyunu duraklat
+            // Cursor.lockState = CursorLockMode.None; // BU SATIRI KALDIR veya yorum satırı yap
 
             SetMessage("Şifreyi giriniz", Color.white);
+            
+            // Interaction text'i gizle
+            ShowInteractionText(false);
+            
+            // Player hareketini durdur (opsiyonel)
+            // FindObjectOfType<PlayerMovement>().SetMovement(false);
         }
     }
 
@@ -131,10 +169,18 @@ public class DoorPasswordSystem : MonoBehaviour
         {
             passwordCanvas.gameObject.SetActive(false);
             
-            // UI ayarları
+            // SADECE fare imlecini gizle, kilitleme (FPS oyunu için)
             Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Time.timeScale = 1f; // Oyunu devam ettir
+            // Cursor.lockState = CursorLockMode.Locked; // BU SATIRI KALDIR veya yorum satırı yap
+
+            // Eğer hala trigger içindeyse interaction text'i göster
+            if (isInTrigger && !isDoorOpen)
+            {
+                ShowInteractionText(true);
+            }
+            
+            // Player hareketini devam ettir (opsiyonel)
+            // FindObjectOfType<PlayerMovement>().SetMovement(true);
         }
     }
 
@@ -155,36 +201,35 @@ public class DoorPasswordSystem : MonoBehaviour
             // Şifre yanlış
             SetMessage("Şifre yanlış! Tekrar deneyin.", Color.red);
             
-            // Input'u temizle ve yeniden focusla
+            // Input'u temizle
             passwordInputField.text = "";
             passwordInputField.Select();
             passwordInputField.ActivateInputField();
             
-            // Titreme efekti (opsiyonel)
+            // Titreme efekti
             StartCoroutine(ShakeInputField());
         }
     }
 
     IEnumerator OpenDoorAfterDelay(float delay)
     {
-        yield return new WaitForSecondsRealtime(delay); // Realtime kullanıyoruz çünkü timescale 0
-        
+        yield return new WaitForSecondsRealtime(delay);
         OpenDoor();
         CloseCanvas();
     }
 
     void OpenDoor()
     {
-        if (doorAnimator != null)
+        if (doorObject != null)
         {
-            doorAnimator.Play(openAnimation);
+            // KAPIDOĞRU EKSENDE AÇILACAK
+            doorObject.transform.Rotate(openRotation);
             isDoorOpen = true;
-        }
-        else
-        {
-            // Animator yoksa direkt rotate edelim
-            transform.Rotate(0, 90, 0); // Kapıyı 90 derece aç
-            isDoorOpen = true;
+            
+            // Trigger'ı devre dışı bırak (artık etkileşim olmasın)
+            GetComponent<Collider>().isTrigger = false;
+            
+            Debug.Log("Kapı açıldı! Yeni rotasyon: " + doorObject.transform.eulerAngles);
         }
     }
 
@@ -202,10 +247,7 @@ public class DoorPasswordSystem : MonoBehaviour
         while (elapsed < shakeDuration)
         {
             float x = Random.Range(-1f, 1f) * shakeMagnitude;
-            float y = Random.Range(-1f, 1f) * shakeMagnitude;
-
-            inputRT.localPosition = originalPos + new Vector3(x, y, 0);
-
+            inputRT.localPosition = originalPos + new Vector3(x, 0, 0);
             elapsed += Time.unscaledDeltaTime;
             yield return null;
         }
@@ -220,12 +262,5 @@ public class DoorPasswordSystem : MonoBehaviour
             messageText.text = message;
             messageText.color = color;
         }
-    }
-
-    // Gizmos olarak etkileşim mesafesini göster
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, interactionDistance);
     }
 }
