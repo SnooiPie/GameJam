@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SphereInteraction : MonoBehaviour
 {
     public int id;
     public bool isCorrectSphere = false;
-    
+    //public GameObject text;
+
+    private void Start()
+    {
+        
+    }
     public void Collect()
     {
         Debug.Log($"Sphere {id} toplandı!");
