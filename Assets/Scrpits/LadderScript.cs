@@ -5,7 +5,7 @@ public class LadderTeleport : MonoBehaviour
 {
     public Transform topPoint;        // Merdivenin üst noktası
     public Transform bottomPoint;     // Merdivenin alt noktası
-    public float thresholdY = 2f;     // Yüksekliğe göre karar verilecek değer
+    public float thresholdY = 1f;     // Yüksekliğe göre karar verilecek değer
     public KeyCode teleportKey = KeyCode.T;
     public float moveDuration = 1f;   // Kaç saniyede geçiş yapsın
 
