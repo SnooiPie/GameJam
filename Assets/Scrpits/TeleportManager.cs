@@ -5,7 +5,9 @@ using System.Collections;
 public class TeleportManager : MonoBehaviour
 {
     [Header("Teleport Settings")]
-    public Transform teleportTarget; // Teleport olunacak hedef nokta
+    private Transform teleportTarget; // Teleport olunacak hedef nokta
+    public Transform teleportTarget1; // Teleport olunacak hedef nokta
+    public Transform teleportTarget2; // Teleport olunacak hedef nokta
     public GameObject player; // Oyuncu objesi
     public Text interactionText; // Ekranda gösterilecek text
     public KeyCode teleportKey = KeyCode.T; // Teleport tuşu
@@ -27,6 +29,14 @@ public class TeleportManager : MonoBehaviour
         if (isInTrigger && Input.GetKeyDown(teleportKey))
         {
             TeleportPlayer();
+        }
+        if (player.transform.position.y > 0)
+        {
+            teleportTarget = teleportTarget2;
+        }
+        else
+        {
+            teleportTarget = teleportTarget1;
         }
     }
 
@@ -71,7 +81,7 @@ public class TeleportManager : MonoBehaviour
             
             // Text'i gizle
             ShowText(false);
-            isInTrigger = false;
+            //isInTrigger = false;
             
             Debug.Log("Teleport gerçekleştirildi!");
         }
