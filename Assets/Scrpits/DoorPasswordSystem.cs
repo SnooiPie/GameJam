@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class DoorPasswordSystem : MonoBehaviour
 {
@@ -110,6 +111,7 @@ public class DoorPasswordSystem : MonoBehaviour
             if (!passwordCanvas.gameObject.activeSelf)
             {
                 OpenCanvas();
+                Debug.Log("Kapı şifre girişi açıldı.");
             }
         }
     }
@@ -246,7 +248,7 @@ public class DoorPasswordSystem : MonoBehaviour
 
         while (elapsed < shakeDuration)
         {
-            float x = Random.Range(-1f, 1f) * shakeMagnitude;
+            float x = UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude;
             inputRT.localPosition = originalPos + new Vector3(x, 0, 0);
             elapsed += Time.unscaledDeltaTime;
             yield return null;
