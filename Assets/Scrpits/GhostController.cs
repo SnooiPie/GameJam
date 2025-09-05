@@ -9,6 +9,8 @@ public class GhostController : MonoBehaviour
 
     float xmin, xmax, zmin, zmax;
 
+    private SphereInteraction currentSphere;
+
     void LateUpdate()
     {
         Vector3 pos = transform.position;
@@ -52,6 +54,12 @@ public class GhostController : MonoBehaviour
         
         Vector3 movement = new Vector3(-moveVertical, 0.0f, moveHorizontal);
         transform.Translate(movement * speed * Time.deltaTime, Space.World);
+
+        if (currentSphere != null && Input.GetKeyDown(KeyCode.E))
+        {
+            currentSphere.Collect();
+            currentSphere = null;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -62,7 +70,8 @@ public class GhostController : MonoBehaviour
             if (sphere != null)
             {
                 lastTriggeredSphereID = sphere.id;
-                
+                currentSphere = sphere;
+
                 if (GameManager.Instance != null)
                 {
                     GameManager.Instance.SetCurrentSphereID(sphere.id);
