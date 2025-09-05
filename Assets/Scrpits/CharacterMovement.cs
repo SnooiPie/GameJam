@@ -57,5 +57,50 @@ public class CharacterMovement : MonoBehaviour
                 targetSphere = null;
             }
         }
+<<<<<<< Updated upstream
+=======
+
+        // Eğer hiçbir waypoint hedef yönünde değilse, en yakın olanı seç
+        if (bestWaypoint == null || bestScore <= 0)
+        {
+            float closestDistance = float.MaxValue;
+            foreach (Transform waypoint in waypoints)
+            {
+                if (waypoint == null) continue;
+                
+                float distance = Vector3.Distance(currentPos, waypoint.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    bestWaypoint = waypoint;
+                }
+            }
+        }
+
+        return bestWaypoint;
+    }
+
+public void TeleportInstantly(Vector3 position)
+{
+    transform.position = position;
+}
+
+    public void StopMovement()
+    {
+        if (movementCoroutine != null)
+        {
+            StopCoroutine(movementCoroutine);
+        }
+
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.ResetPath();
+        }
+
+        isMoving = false;
+        currentTargetSphereID = -1;
+        Debug.Log("Hareket durduruldu!");
+>>>>>>> Stashed changes
     }
 }
