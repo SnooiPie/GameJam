@@ -4920,6 +4920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostController
   speed: 5
+  interactionHandler: {fileID: 0}
 --- !u!4 &1228128628 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3896139f127b6bd40a71e8fd561346ab, type: 3}
@@ -6007,6 +6008,7 @@ GameObject:
   - component: {fileID: 1327168659}
   - component: {fileID: 1327168658}
   - component: {fileID: 1327168657}
+  - component: {fileID: 1327168660}
   m_Layer: 0
   m_Name: Pixel Camera
   m_TagString: Untagged
@@ -6132,6 +6134,18 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1327168660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327168655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a86855534a074bf45a8c03aa65251f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PixelCamScript
 --- !u!1 &1328755254
 GameObject:
   m_ObjectHideFlags: 0
@@ -7545,16 +7559,7 @@ PrefabInstance:
       addedObject: {fileID: 1834701067}
     - targetCorrespondingSourceObject: {fileID: 281855664364225751, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1834701072}
-    - targetCorrespondingSourceObject: {fileID: 281855664364225751, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1834701073}
-    - targetCorrespondingSourceObject: {fileID: -2045257923548263128, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1228151287}
-    - targetCorrespondingSourceObject: {fileID: -2045257923548263128, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1228151288}
+      addedObject: {fileID: 1834701071}
     - targetCorrespondingSourceObject: {fileID: -6763858364670572316, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1412828226}
