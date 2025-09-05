@@ -6,33 +6,40 @@ public class SphereInteraction : MonoBehaviour
     public int id;
     public bool isCorrectSphere = false;
     //public GameObject text;
+    public int linkedDoor;
+    public GameObject RoomManager;
 
     private void Start()
     {
-        
+
     }
     public void Collect()
-{
-    if (!isCorrectSphere && FearManager.Instance != null)
     {
-        FearManager.Instance.ChangeFear(25f);
-    }
+        if (isCorrectSphere && linkedDoor != null)
+        {
+            RoomManager.GetComponent<RoomController>().isRoomUnlocked[linkedDoor] = true;
+        }
 
-    // ------------------- EKLE -------------------
-    CharacterMovement ai = FindObjectOfType<CharacterMovement>();
-    if (ai != null)
-    {
-        ai.TeleportInstantly(transform.position);
-    }
-    // ------------------- EKLE -------------------
+        if (!isCorrectSphere && FearManager.Instance != null)
+        {
+            FearManager.Instance.ChangeFear(25f);
+        }
 
-    if (GameManager.Instance != null && GameManager.Instance.currentSphereID == id)
-    {
-        GameManager.Instance.ClearCurrentSphereID();
-    }
+        // ------------------- EKLE -------------------
+        CharacterMovement ai = FindObjectOfType<CharacterMovement>();
+        if (ai != null)
+        {
+            ai.TeleportInstantly(transform.position);
+        }
+        // ------------------- EKLE -------------------
 
-    Destroy(gameObject);
-}
+        if (GameManager.Instance != null && GameManager.Instance.currentSphereID == id)
+        {
+            GameManager.Instance.ClearCurrentSphereID();
+        }
+
+        Destroy(gameObject);
+    }
 
 
     

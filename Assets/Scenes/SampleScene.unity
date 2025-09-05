@@ -5063,7 +5063,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 2
-  isCorrectSphere: 0
+  isCorrectSphere: 1
+  linkedDoor: 1
+  RoomManager: {fileID: 222445698}
 --- !u!114 &1105773387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5313,6 +5315,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 0
   isCorrectSphere: 0
+  linkedDoor: 0
+  RoomManager: {fileID: 0}
 --- !u!114 &1149091150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6449,6 +6453,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 2
   isCorrectSphere: 0
+  linkedDoor: 0
+  RoomManager: {fileID: 0}
 --- !u!114 &1262346814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9261,6 +9267,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 0
   isCorrectSphere: 0
+  linkedDoor: 0
+  RoomManager: {fileID: 0}
 --- !u!114 &1517290524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9386,6 +9394,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 1
   isCorrectSphere: 0
+  linkedDoor: 0
+  RoomManager: {fileID: 0}
 --- !u!114 &1529383986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10902,6 +10912,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 1
   isCorrectSphere: 0
+  linkedDoor: 0
+  RoomManager: {fileID: 0}
 --- !u!114 &1812260013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12266,6 +12278,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 1
   isCorrectSphere: 0
+  linkedDoor: 0
+  RoomManager: {fileID: 0}
 --- !u!1 &2138281286 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1857309847194865932, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
