@@ -5,7 +5,7 @@ public class GhostController : MonoBehaviour
     public float speed = 5f;
     private int lastTriggeredSphereID = -1;
 
-    public Transform[] borderPoints = new Transform[8];
+    public Transform[] borderPoints = new Transform[4];
 
     float xmin, xmax, zmin, zmax;
 
