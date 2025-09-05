@@ -1,17 +1,23 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SphereInteraction : MonoBehaviour
 {
     public int id;
     public bool isCorrectSphere = false;
-    
+    //public GameObject text;
+
+    private void Start()
+    {
+        
+    }
     public void Collect()
     {
         Debug.Log($"Sphere {id} toplandı!");
         
         if (!isCorrectSphere && FearManager.Instance != null)
         {
-            FearManager.Instance.IncreaseFear(25f);
+            FearManager.Instance.ChangeFear(25f);
         }
         
         // GameManager'daki ID'yi temizle

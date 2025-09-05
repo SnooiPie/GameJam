@@ -598,6 +598,64 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
+--- !u!1 &115745031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 115745033}
+  - component: {fileID: 115745032}
+  m_Layer: 0
+  m_Name: NavMesh Link
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &115745032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115745031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshLink
+  m_SerializedVersion: 1
+  m_AgentTypeID: 0
+  m_StartPoint: {x: 1.6119418, y: -0.9933028, z: 2.2649455}
+  m_EndPoint: {x: 0.11409068, y: 0.18208265, z: 2.3414679}
+  m_StartTransform: {fileID: 0}
+  m_EndTransform: {fileID: 0}
+  m_Activated: 1
+  m_Width: 0
+  m_CostModifier: 1
+  m_IsOverridingCost: 0
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
+--- !u!4 &115745033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115745031}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.972, y: -4.35, z: -7.778}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 337028324}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &120129456 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7515429101286732190, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
@@ -866,6 +924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 2
   isCorrectSphere: 0
+  pointsValue: 10
 --- !u!114 &210776026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1989,6 +2048,115 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &337028323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 337028324}
+  - component: {fileID: 337028327}
+  - component: {fileID: 337028326}
+  - component: {fileID: 337028325}
+  m_Layer: 0
+  m_Name: NavMesh Link (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &337028324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337028323}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.78013927, z: -0, w: 0.62560594}
+  m_LocalPosition: {x: -1.656, y: 2.623, z: 4.879}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 115745033}
+  m_LocalEulerAnglesHint: {x: 0, y: 102.547, z: 0}
+--- !u!114 &337028325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337028323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshLink
+  m_SerializedVersion: 1
+  m_AgentTypeID: 0
+  m_StartPoint: {x: 3.5607026, y: 3.9250903, z: 2.3035681}
+  m_EndPoint: {x: -0.7786751, y: 0, z: 0.34245324}
+  m_StartTransform: {fileID: 0}
+  m_EndTransform: {fileID: 0}
+  m_Activated: 1
+  m_Width: 0
+  m_CostModifier: 1
+  m_IsOverridingCost: 0
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
+--- !u!114 &337028326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337028323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshLink
+  m_SerializedVersion: 1
+  m_AgentTypeID: 0
+  m_StartPoint: {x: -0.80360866, y: -0.01689303, z: 0.42999926}
+  m_EndPoint: {x: -1.1735535, y: 0, z: 1.94}
+  m_StartTransform: {fileID: 0}
+  m_EndTransform: {fileID: 0}
+  m_Activated: 1
+  m_Width: 0
+  m_CostModifier: 1
+  m_IsOverridingCost: 0
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
+--- !u!114 &337028327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337028323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshLink
+  m_SerializedVersion: 1
+  m_AgentTypeID: 0
+  m_StartPoint: {x: 2.1710336, y: -2.4034748, z: 2.2848303}
+  m_EndPoint: {x: -1.1862013, y: 0.074976325, z: 1.910112}
+  m_StartTransform: {fileID: 0}
+  m_EndTransform: {fileID: 0}
+  m_Activated: 1
+  m_Width: 0
+  m_CostModifier: 1
+  m_IsOverridingCost: 0
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
 --- !u!1 &344560423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2359,7 +2527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f34ddd1f385717348a42db3fc0ac2ba6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.9340644
+      value: -5.67
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f34ddd1f385717348a42db3fc0ac2ba6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2484,15 +2652,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostController
   speed: 5
-  borderPoints:
-  - {fileID: 1284998349}
-  - {fileID: 574116391}
-  - {fileID: 333190364}
-  - {fileID: 120473237}
-  - {fileID: 1067328809}
-  - {fileID: 1465365695}
-  - {fileID: 1732202642}
-  - {fileID: 1743021412}
 --- !u!4 &422258425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f34ddd1f385717348a42db3fc0ac2ba6, type: 3}
@@ -4077,6 +4236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 0
   isCorrectSphere: 0
+  pointsValue: 10
 --- !u!114 &882407272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5342,7 +5502,7 @@ Transform:
   m_GameObject: {fileID: 1231587674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: -4, z: -10.018}
+  m_LocalPosition: {x: -1.43, y: -4, z: -7.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5360,16 +5520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc25c9ed83a1e4e49addf621f3d7ff90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterMovement
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   moveSpeed: 5
-  rotationSpeed: 5
-  waitAtSphereTime: 2
 --- !u!54 &1231587680
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5943,6 +6094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 2
   isCorrectSphere: 0
+  pointsValue: 10
 --- !u!114 &1262346814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6598,16 +6750,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822fbecef19fa7c449d2efb7cc8c0086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  character: {fileID: 1231587679}
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  character: {fileID: 0}
   currentSphereID: -1
+  messagePanel: {fileID: 0}
+  messageText: {fileID: 0}
+  messageDisplayTime: 3
 --- !u!4 &1346945895
 Transform:
   m_ObjectHideFlags: 0
@@ -6637,11 +6784,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FearManager
   maxFear: 100
   currentFear: 0
-  wrongSphereFearIncrease: 25
+  fearDecreaseRate: 2
+  showDebugLogs: 1
   fearSlider: {fileID: 0}
   fearFillImage: {fileID: 0}
   lowFearColor: {r: 0, g: 1, b: 0, a: 1}
+  mediumFearColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   highFearColor: {r: 1, g: 0, b: 0, a: 1}
+  gameOverPanel: {fileID: 0}
+  gameOverText: {fileID: 0}
+  scoreText: {fileID: 0}
 --- !u!1 &1361919035 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -382641576403523837, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
@@ -11069,6 +11221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 1
   isCorrectSphere: 0
+  pointsValue: 10
 --- !u!1 &2138281286 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1857309847194865932, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
@@ -11172,3 +11325,4 @@ SceneRoots:
   - {fileID: 2045524169}
   - {fileID: 309124963}
   - {fileID: 422258418}
+  - {fileID: 115745033}
