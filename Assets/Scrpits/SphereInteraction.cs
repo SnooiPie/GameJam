@@ -7,9 +7,11 @@ public class SphereInteraction : MonoBehaviour
     public int id;
     public bool isSpecialKaset = false;
 
+
     void Start()
     {
         SetSphereColor();
+
     }
 
     void SetSphereColor()
