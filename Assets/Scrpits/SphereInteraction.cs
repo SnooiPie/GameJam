@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI; // NavMeshAgent için ekle
 
 public class SphereInteraction : MonoBehaviour
 {
@@ -39,11 +40,24 @@ public class SphereInteraction : MonoBehaviour
             GameManager.Instance.ClearCurrentSphereID();
         }
 
-        // Move AI to this sphere's position
+        // Move AI to this sphere's position using NavMeshAgent
         CharacterMovement ai = FindObjectOfType<CharacterMovement>();
         if (ai != null)
         {
-            ai.TeleportInstantly(transform.position);
+            NavMeshAgent agent = ai.GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                Debug.Log("AI found, moving with NavMeshAgent...");
+                agent.SetDestination(transform.position);
+            }
+            else
+            {
+                Debug.LogWarning("NavMeshAgent not found on AI!");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("AI not found!");
         }
 
         // Increase fear if needed
