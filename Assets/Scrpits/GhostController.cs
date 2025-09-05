@@ -5,8 +5,36 @@ public class GhostController : MonoBehaviour
     public float speed = 5f;
     private int lastTriggeredSphereID = -1;
 
+    public Transform[] borderPoints = new Transform[8];
+
+    float xmin, xmax, zmin, zmax;
+
+    void LateUpdate()
+    {
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, xmin, xmax);
+        pos.z = Mathf.Clamp(pos.z, zmin, zmax);
+        transform.position = pos;
+    }
+
     void Start()
     {
+        if (borderPoints.Length == 0) return;
+
+        xmin = float.MaxValue;
+        xmax = float.MinValue;
+        zmin = float.MaxValue;
+        zmax = float.MinValue;
+
+        foreach (var t in borderPoints)
+        {
+            if (t == null) continue;
+            xmin = Mathf.Min(xmin, t.position.x);
+            xmax = Mathf.Max(xmax, t.position.x);
+            zmin = Mathf.Min(zmin, t.position.z);
+            zmax = Mathf.Max(zmax, t.position.z);
+        }
+
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -21,7 +49,7 @@ public class GhostController : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
         
-        Vector3 movement = new Vector3(moveVertical, 0.0f, moveHorizontal);
+        Vector3 movement = new Vector3(-moveVertical, 0.0f, moveHorizontal);
         transform.Translate(movement * speed * Time.deltaTime, Space.World);
     }
 
