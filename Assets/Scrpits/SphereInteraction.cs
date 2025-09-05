@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic; // List kullanabilmek için ekledik
 
 public class SphereInteraction : MonoBehaviour
 {
     public int id;
     public bool isCorrectSphere = false;
+    public List<int> diskColors = new List<int> { 0, 1, 2 }; // Örnek: Kırmızı, Yeşil, Mavi
     //public GameObject text;
 
     private void Start()
@@ -13,25 +15,20 @@ public class SphereInteraction : MonoBehaviour
     }
     public void Collect()
 {
-    if (!isCorrectSphere && FearManager.Instance != null)
+    // Sıralama kontrolü
+    if (GameManager.Instance.diskOrder[GameManager.Instance.currentDiskIndex] == id)
     {
-        FearManager.Instance.ChangeFear(25f);
+        GameManager.Instance.AddDiskToOrder(id); // UI ve sıralama güncellenir
+        GameManager.Instance.currentDiskIndex++; // Bir sonraki disk
+        Destroy(gameObject); // Disk yok edilir
     }
-
-    // ------------------- EKLE -------------------
-    CharacterMovement ai = FindObjectOfType<CharacterMovement>();
-    if (ai != null)
+    else
     {
-        ai.TeleportInstantly(transform.position);
+        // Yanlış disk alındı, hata mesajı veya geri verme işlemi
+        Debug.Log("Yanlış disk! Sıra bozuldu.");
+        // İstersen diskleri geri ver, sıralamayı sıfırla
+        GameManager.Instance.ResetDiskOrder();
     }
-    // ------------------- EKLE -------------------
-
-    if (GameManager.Instance != null && GameManager.Instance.currentSphereID == id)
-    {
-        GameManager.Instance.ClearCurrentSphereID();
-    }
-
-    Destroy(gameObject);
 }
 
 
@@ -52,6 +49,15 @@ public class SphereInteraction : MonoBehaviour
         if (renderer != null)
         {
             renderer.material.color = isCorrectSphere ? Color.green : Color.red;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        CharacterMovement ai = FindObjectOfType<CharacterMovement>();
+        if (ai != null)
+        {
+            ai.TeleportInstantly(transform.position);
         }
     }
 }

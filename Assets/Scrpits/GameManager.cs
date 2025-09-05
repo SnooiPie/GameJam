@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,13 @@ public class GameManager : MonoBehaviour
     public List<Transform> waypoints;
     public int currentSphereID = -1;
     private SphereInteraction currentTargetSphere; // Mevcut hedef sphere'i takip et
+
+    public List<int> correctOrder = new List<int> { 1, 2, 3 }; // Doğru sıra
+    public List<int> currentOrder = new List<int>();
+    public Text orderText; // UI referansı
+
+    public List<int> diskOrder = new List<int> { 0, 1, 2 }; // örnek: mavi, kırmızı, yeşil
+    public int currentDiskIndex = 0; // AI'nın sıradaki hedefi
 
     void Awake()
     {
@@ -74,5 +82,90 @@ public class GameManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public void AddDiskToOrder(int id)
+    {
+        currentOrder.Add(id);
+        UpdateOrderUI();
+
+        if (currentOrder.Count == correctOrder.Count)
+        {
+            CheckOrder();
+        }
+    }
+
+    void UpdateOrderUI()
+    {
+        if (orderText != null)
+        {
+            var renkler = currentOrder.ConvertAll(id => GetDiskColorName(id));
+            orderText.text = "Sıra: " + string.Join(" - ", renkler);
+        }
+    }
+
+    void CheckOrder()
+    {
+        bool isCorrect = true;
+        for (int i = 0; i < correctOrder.Count; i++)
+        {
+            if (currentOrder[i] != correctOrder[i])
+            {
+                isCorrect = false;
+                break;
+            }
+        }
+
+        if (isCorrect)
+        {
+            orderText.text = "Doğru! Puzzle çözüldü.";
+            // Puzzle tamamlandı, ödül vs.
+        }
+        else
+        {
+            orderText.text = "Yanlış sıra! Diskler geri verildi.";
+            ReturnDisks();
+        }
+    }
+
+    void ReturnDisks()
+    {
+        // Diskleri geri ver, sıfırla
+        currentOrder.Clear();
+        UpdateOrderUI();
+        // Diskleri sahneye geri koymak için ek kod ekle
+    }
+
+    public void ResetDiskOrder()
+    {
+        currentOrder.Clear();
+        currentDiskIndex = 0;
+        UpdateOrderUI();
+        // Diskleri sahneye geri koymak için ek kod ekleyebilirsin
+    }
+
+    string GetDiskColorName(int id)
+    {
+        switch (id)
+        {
+            case 0: return "Kırmızı";
+            case 1: return "Yeşil";
+            case 2: return "Mavi";
+            default: return "Bilinmiyor";
+        }
+    }
+
+    public void ShowOnlySphere1Colors()
+    {
+        var sphere = FindSphereByID(1);
+        if (sphere != null && orderText != null)
+        {
+            var renkler = sphere.diskColors.ConvertAll(id => GetDiskColorName(id));
+            orderText.text = "Sphere 1 Renkleri: " + string.Join(" - ", renkler);
+        }
+        else
+        {
+            orderText.text = "Sphere 1 veya renkler bulunamadı.";
+        }
     }
 }
