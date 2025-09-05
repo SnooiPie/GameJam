@@ -10,6 +10,9 @@ public class DoorPasswordSystem : MonoBehaviour
     public GameObject doorObject; // Kapı objesi
     public Vector3 openRotation = new Vector3(0, 90, 0); // Kapı açılma rotasyonu
 
+    [Header("Karakter Ayarları")]
+    public GameObject hiddenCharacter; // Kapı açıldığında görünür olacak karakter
+
     [Header("UI Ayarları")]
     public Canvas passwordCanvas; // Şifre canvas'ı
     public InputField passwordInputField; // Şifre giriş input'u
@@ -34,33 +37,22 @@ public class DoorPasswordSystem : MonoBehaviour
         {
             originalDoorRotation = doorObject.transform.eulerAngles;
         }
+
+        // Karakteri başta gizle
+        if (hiddenCharacter != null)
+        {
+            hiddenCharacter.SetActive(false);
+        }
     }
 
     void InitializeUI()
     {
-        // Başlangıçta UI elementlerini gizle
-        if (passwordCanvas != null)
-        {
-            passwordCanvas.gameObject.SetActive(false);
-        }
+        if (passwordCanvas != null) passwordCanvas.gameObject.SetActive(false);
+        if (interactionText != null) interactionText.gameObject.SetActive(false);
 
-        if (interactionText != null)
-        {
-            interactionText.gameObject.SetActive(false);
-        }
+        if (submitButton != null) submitButton.onClick.AddListener(CheckPassword);
+        if (closeButton != null) closeButton.onClick.AddListener(CloseCanvas);
 
-        // Buton eventlerini ayarla
-        if (submitButton != null)
-        {
-            submitButton.onClick.AddListener(CheckPassword);
-        }
-
-        if (closeButton != null)
-        {
-            closeButton.onClick.AddListener(CloseCanvas);
-        }
-
-        // Input field eventi (Enter ile gönderme)
         if (passwordInputField != null)
         {
             passwordInputField.onEndEdit.AddListener(delegate { OnInputEndEdit(); });
@@ -87,8 +79,7 @@ public class DoorPasswordSystem : MonoBehaviour
         {
             isInTrigger = false;
             ShowInteractionText(false);
-            
-            // Eğer dışarı çıkılırsa canvas'ı da kapat
+
             if (passwordCanvas != null && passwordCanvas.gameObject.activeSelf)
             {
                 CloseCanvas();
@@ -98,14 +89,12 @@ public class DoorPasswordSystem : MonoBehaviour
 
     void HandleInteraction()
     {
-        // ESC ile canvas'ı kapat
         if (passwordCanvas != null && passwordCanvas.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
             CloseCanvas();
             return;
         }
 
-        // E tuşu ile etkileşim (sadece trigger içindeyse ve kapı kapalıysa)
         if (isInTrigger && Input.GetKeyDown(interactionKey) && !isDoorOpen)
         {
             if (!passwordCanvas.gameObject.activeSelf)
@@ -118,7 +107,6 @@ public class DoorPasswordSystem : MonoBehaviour
 
     void OnInputEndEdit()
     {
-        // Enter tuşu ile gönderme
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             CheckPassword();
@@ -142,8 +130,7 @@ public class DoorPasswordSystem : MonoBehaviour
         if (passwordCanvas != null)
         {
             passwordCanvas.gameObject.SetActive(true);
-            
-            // Input field'ı hazırla
+
             if (passwordInputField != null)
             {
                 passwordInputField.text = "";
@@ -151,17 +138,10 @@ public class DoorPasswordSystem : MonoBehaviour
                 passwordInputField.ActivateInputField();
             }
 
-            // SADECE fare imlecini göster, kilidini açma (FPS oyunu için)
             Cursor.visible = true;
-            // Cursor.lockState = CursorLockMode.None; // BU SATIRI KALDIR veya yorum satırı yap
 
             SetMessage("Şifreyi giriniz", Color.white);
-            
-            // Interaction text'i gizle
             ShowInteractionText(false);
-            
-            // Player hareketini durdur (opsiyonel)
-            // FindObjectOfType<PlayerMovement>().SetMovement(false);
         }
     }
 
@@ -170,19 +150,12 @@ public class DoorPasswordSystem : MonoBehaviour
         if (passwordCanvas != null)
         {
             passwordCanvas.gameObject.SetActive(false);
-            
-            // SADECE fare imlecini gizle, kilitleme (FPS oyunu için)
             Cursor.visible = false;
-            // Cursor.lockState = CursorLockMode.Locked; // BU SATIRI KALDIR veya yorum satırı yap
 
-            // Eğer hala trigger içindeyse interaction text'i göster
             if (isInTrigger && !isDoorOpen)
             {
                 ShowInteractionText(true);
             }
-            
-            // Player hareketini devam ettir (opsiyonel)
-            // FindObjectOfType<PlayerMovement>().SetMovement(true);
         }
     }
 
@@ -194,21 +167,17 @@ public class DoorPasswordSystem : MonoBehaviour
 
         if (enteredPassword == correctPassword)
         {
-            // Şifre doğru
             SetMessage("Şifre doğru! Kapı açılıyor...", Color.green);
             StartCoroutine(OpenDoorAfterDelay(1.5f));
         }
         else
         {
-            // Şifre yanlış
             SetMessage("Şifre yanlış! Tekrar deneyin.", Color.red);
-            
-            // Input'u temizle
+
             passwordInputField.text = "";
             passwordInputField.Select();
             passwordInputField.ActivateInputField();
-            
-            // Titreme efekti
+
             StartCoroutine(ShakeInputField());
         }
     }
@@ -224,14 +193,17 @@ public class DoorPasswordSystem : MonoBehaviour
     {
         if (doorObject != null)
         {
-            // KAPIDOĞRU EKSENDE AÇILACAK
             doorObject.transform.Rotate(openRotation);
             isDoorOpen = true;
-            
-            // Trigger'ı devre dışı bırak (artık etkileşim olmasın)
             GetComponent<Collider>().isTrigger = false;
-            
+
             Debug.Log("Kapı açıldı! Yeni rotasyon: " + doorObject.transform.eulerAngles);
+
+            // Karakteri görünür yap
+            if (hiddenCharacter != null)
+            {
+                hiddenCharacter.SetActive(true);
+            }
         }
     }
 
