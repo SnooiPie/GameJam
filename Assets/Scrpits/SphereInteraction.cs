@@ -54,4 +54,20 @@ public class SphereInteraction : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    public void HighlightTemporarily(float duration = 1f)
+    {
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            Color originalColor = renderer.material.color;
+            renderer.material.color = Color.yellow;
+            Invoke(nameof(ResetColor), duration);
+        }
+    }
+
+    void ResetColor()
+    {
+        SetSphereColor();
+    }
 }

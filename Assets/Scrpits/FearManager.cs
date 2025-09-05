@@ -147,4 +147,12 @@ public class FearManager : MonoBehaviour
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
     }
+
+    /// <summary>
+    /// Increases fear by a specified amount.
+    /// </summary>
+    public void IncreaseFear(float amount)
+    {
+        ChangeFear(amount);
+    }
 }
