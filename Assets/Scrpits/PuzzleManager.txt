@@ -1,0 +1,9 @@
+public class PuzzleManager : MonoBehaviour
+{
+    public int correctSphereID;
+
+    public bool IsCorrectSphere(int sphereID)
+    {
+        return sphereID == correctSphereID;
+    }
+}

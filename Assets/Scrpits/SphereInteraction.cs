@@ -26,10 +26,8 @@ public class SphereInteraction : MonoBehaviour
     }
 
     public void Collect()
-{
-    if (!isCorrectSphere && FearManager.Instance != null)
     {
-        Debug.Log($"Sphere {id} toplandı! - Tür: {(isSpecialKaset ? "Kaset" : "Disk")}");
+        Debug.Log($"Sphere {id} collected! Type: {(isSpecialKaset ? "Kaset" : "Disk")}");
 
         if (isSpecialKaset && GameManager.Instance != null)
         {
@@ -41,33 +39,19 @@ public class SphereInteraction : MonoBehaviour
             GameManager.Instance.ClearCurrentSphereID();
         }
 
+        // Move AI to this sphere's position
+        CharacterMovement ai = FindObjectOfType<CharacterMovement>();
+        if (ai != null)
+        {
+            ai.TeleportInstantly(transform.position);
+        }
+
+        // Increase fear if needed
+        if (FearManager.Instance != null)
+        {
+            FearManager.Instance.ChangeFear(25f);
+        }
+
         Destroy(gameObject);
-    }
-
-    internal void HighlightTemporarily()
-        FearManager.Instance.ChangeFear(25f);
-    }
-
-    // ------------------- EKLE -------------------
-    CharacterMovement ai = FindObjectOfType<CharacterMovement>();
-    if (ai != null)
-    {
-        ai.TeleportInstantly(transform.position);
-    }
-    // ------------------- EKLE -------------------
-
-    if (GameManager.Instance != null && GameManager.Instance.currentSphereID == id)
-    {
-        GameManager.Instance.ClearCurrentSphereID();
-    }
-
-    Destroy(gameObject);
-}
-
-
-    
-    public void HighlightTemporarily()
-    {
-        throw new NotImplementedException();
     }
 }
