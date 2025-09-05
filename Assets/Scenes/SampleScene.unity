@@ -924,7 +924,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 2
   isCorrectSphere: 0
-  pointsValue: 10
 --- !u!114 &210776026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1295,6 +1294,7 @@ Transform:
   - {fileID: 574116391}
   - {fileID: 333190364}
   - {fileID: 120473237}
+  - {fileID: 1465365695}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &316784706 stripped
@@ -4392,7 +4392,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 0
   isCorrectSphere: 0
-  pointsValue: 10
 --- !u!114 &882407272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5717,7 +5716,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc25c9ed83a1e4e49addf621f3d7ff90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterMovement
+  waypoints: []
   moveSpeed: 5
+  rotationSpeed: 5
+  waitAtSphereTime: 2
 --- !u!54 &1231587680
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6291,7 +6293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 2
   isCorrectSphere: 0
-  pointsValue: 10
 --- !u!114 &1262346814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6948,10 +6949,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   character: {fileID: 0}
+  waypoints: []
   currentSphereID: -1
-  messagePanel: {fileID: 0}
-  messageText: {fileID: 0}
-  messageDisplayTime: 3
 --- !u!4 &1346945895
 Transform:
   m_ObjectHideFlags: 0
@@ -11821,7 +11820,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SphereInteraction
   id: 1
   isCorrectSphere: 0
-  pointsValue: 10
 --- !u!1 &2138281286 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1857309847194865932, guid: 3770be84a2c39dc4aa9a2de35f9ee7fd, type: 3}
@@ -11930,3 +11928,4 @@ SceneRoots:
   - {fileID: 1554382975}
   - {fileID: 1505110259}
   - {fileID: 2081323180}
+  - {fileID: 115745033}
